@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: emolens_db
+    environment:
+      POSTGRES_USER: emolens
+      POSTGRES_PASSWORD: emolens_secure_password
+      POSTGRES_DB: emolens_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - emolens_network
+
+  # FastAPI Backend
+  api:
+    build: .
+    container_name: emolens_api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://emolens:emolens_secure_password@db:5432/emolens_db
+      LOG_LEVEL: INFO
+    depends_on:
+      - db
+    volumes:
+      - ./main.py:/app/main.py
+      - ./database.py:/app/database.py
+      - ./models.py:/app/models.py
+    networks:
+      - emolens_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  postgres_data:
+
+networks:
+  emolens_network:
+    driver: bridge

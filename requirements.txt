@@ -1,0 +1,38 @@
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+
+# Audio Processing
+librosa==0.10.0
+noisereduce==2.0.0
+pydub==0.25.1
+SpeechRecognition==3.10.0
+openai-whisper==20231117
+
+# NLP
+nltk==3.8.1
+transformers==4.35.2
+torch==2.1.1
+deep-translator==1.11.4
+
+# Vision
+opencv-python==4.8.1.78
+
+# ML/Deep Learning (Optional but recommended)
+tensorflow==2.14.0
+numpy==1.24.3
+scipy==1.11.4
+
+# Development & Testing
+pytest==7.4.3
+httpx==0.25.2
+python-dotenv==1.0.0
+
+# Database
+alembic==1.12.1
+
+# Logging & Monitoring
+python-json-logger==2.0.7
